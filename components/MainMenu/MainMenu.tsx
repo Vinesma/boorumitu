@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
 import { MainMenuNavigationProp } from '../../interfaces/types';
