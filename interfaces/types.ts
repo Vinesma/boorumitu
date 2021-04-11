@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
@@ -17,7 +16,7 @@ export type MainMenuNavigationProp = StackNavigationProp<
 export type GalleryRouteProp = RouteProp<RootStackParamList, 'Gallery'>;
 
 // ResponseProps
-interface DanbooruImage {
+export interface DanbooruImage {
     id: number,
     created_at: string,
     updated_at: string,
