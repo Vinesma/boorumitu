@@ -1,18 +1,14 @@
 import React from 'react';
 import {
     View,
-    ScrollView,
     FlatList,
-    Image,
-    Modal,
     StyleSheet,
     useWindowDimensions,
     ActivityIndicator,
-    GestureResponderEvent
 } from 'react-native';
 import axios from 'axios';
 import PressableImage from './subComponents/PressableImage';
-import { DanbooruPosts, GalleryRouteProp } from '../../interfaces/types';
+import { DanbooruPosts, GalleryRouteProp, DanbooruImage } from '../../interfaces/types';
 import ImageModal from './subComponents/ImageModal';
 
 interface Props {
@@ -26,10 +22,10 @@ const Gallery = ({ route }: Props): JSX.Element => {
     const [page, setPage] = React.useState<number>(1);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-    const [modalUrl, setModalUrl] = React.useState<string>('');
+    const [modalImage, setModalImage] = React.useState<string>('');
     const windowWidth = useWindowDimensions().width;
     const { searchText } = route.params;
-    const isTesting = true;
+    const isTesting = false;
 
     const fetchPosts = () => {
         axios.get(`https://${isTesting ? 'test' : 'dan'}booru.donmai.us/posts.json?page=${page}&tags=${searchText}`)
@@ -49,8 +45,8 @@ const Gallery = ({ route }: Props): JSX.Element => {
         setModalVisible(!modalVisible);
     }
 
-    const handleImagePress = (url: string) => {
-        setModalUrl(url);
+    const handleImagePress = (uri: string) => {
+        setModalImage(uri);
         handleModal();
     };
 
@@ -68,7 +64,7 @@ const Gallery = ({ route }: Props): JSX.Element => {
     return (
         <View style={styles.container}>
             { loading ? <ActivityIndicator size="large" /> : null}
-            <ImageModal visible={modalVisible} url={modalUrl} handleModal={handleModal}/>
+            <ImageModal visible={modalVisible} uri={modalImage} handleModal={handleModal}/>
             <FlatList
                 data={posts}
                 key={windowWidth}

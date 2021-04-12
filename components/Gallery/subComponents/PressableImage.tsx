@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Image, StyleSheet, Alert } from 'react-native';
+import { Pressable, Image, StyleSheet } from 'react-native';
 import { DanbooruImage } from '../../../interfaces/types';
 
 interface Props {
