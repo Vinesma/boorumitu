@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
 import { MainMenuNavigationProp } from '../../interfaces/types';
+import { formatDanbooru } from '../../helpers/formatSearch';
 
 interface Props {
     navigation: MainMenuNavigationProp,
@@ -11,7 +12,7 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
 
     const handleNavigation = () => {
         if (searchText !== '') {
-            navigation.navigate('Gallery', { searchText });
+            navigation.navigate('Gallery', { searchText: formatDanbooru(searchText) });
         }
     };
 
