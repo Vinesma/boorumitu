@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ScrollView, Image, StyleSheet } from 'react-native';
+import { Modal, View, Image, StyleSheet, useWindowDimensions } from 'react-native';
 
 interface Props {
     visible: boolean,
@@ -8,18 +8,25 @@ interface Props {
 }
 
 const ImageModal = ({ visible, uri, handleModal }: Props): JSX.Element => {
+    const width = useWindowDimensions().width;
+    const height = useWindowDimensions().height;
+
     return (
         <Modal
             animationType="fade"
             visible={visible}
             onRequestClose={() => handleModal()}
         >
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 <Image
-                    style={styles.imageFull}
+                    resizeMode="center"
+                    style={{
+                        width,
+                        height,
+                    }}
                     source={{ uri }}
                 />
-            </ScrollView>
+            </View>
         </Modal>
     )
 };
@@ -29,11 +36,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#242424',
     },
-    imageFull: {
-        marginTop: '45%',
-        width: '100%',
-        height: 400,
-    }
 });
 
 export default ImageModal;
