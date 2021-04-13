@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
 import { MainMenuNavigationProp } from '../../interfaces/types';
-import { formatDanbooru } from '../../helpers/formatSearch';
+import { formatDanbooru, shouldAppend, returnFirstString } from '../../helpers/formatSearch';
+import Autocomplete from './subComponents/Autocomplete';
 
 interface Props {
     navigation: MainMenuNavigationProp,
@@ -15,6 +16,14 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
             navigation.navigate('Gallery', { searchText: formatDanbooru(searchText) });
         }
     };
+
+    const handleSuggestion = (suggestion: string) => {
+        if (shouldAppend(searchText)) {
+            setSearchText(prevString => `${returnFirstString(prevString)} ${suggestion}`);
+        } else {
+            setSearchText(suggestion);
+        }
+    }
 
     return (
         <View style={styles.MainContainer}>
@@ -30,6 +39,7 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
             <View style={styles.searchContainer}>
                 <Button title="  Clear  " color="#ff0000" onPress={() => setSearchText('')} />
             </View>
+            <Autocomplete text={searchText} handleSuggestion={handleSuggestion}/>
         </View>
     );
 };

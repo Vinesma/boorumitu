@@ -69,3 +69,14 @@ export interface DanbooruImage {
 }
 
 export type DanbooruPosts = DanbooruImage[];
+
+interface DanbooruAutocomplete {
+    type: string,
+    label: string,
+    value: string,
+    category: number,
+    post_count: number,
+    antecedent: string | null,
+}
+
+export type DanbooruAutocompleteResponse = DanbooruAutocomplete[];
