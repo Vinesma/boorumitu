@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
 import { MainMenuNavigationProp } from '../../interfaces/types';
-import { formatDanbooru, shouldAppend, returnFirstString } from '../../helpers/formatSearch';
+import { formatDanbooru, shouldAppend, returnFirstTag } from '../../helpers/formatSearch';
 import Autocomplete from './subComponents/Autocomplete';
 
 interface Props {
@@ -19,14 +19,14 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
 
     const handleSuggestion = (suggestion: string) => {
         if (shouldAppend(searchText)) {
-            setSearchText(prevString => `${returnFirstString(prevString)} ${suggestion}`);
+            setSearchText(prevString => `${returnFirstTag(prevString)} ${suggestion}`);
         } else {
             setSearchText(suggestion);
         }
     }
 
     return (
-        <View style={styles.MainContainer}>
+        <View style={styles.container}>
             <Text style={styles.title}>BOORUMITU</Text>
             <View style={styles.searchContainer}>
                 <TextInput style={styles.input} value={searchText} onChangeText={text => setSearchText(text)}/>
@@ -45,9 +45,8 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
 };
 
 const styles = StyleSheet.create({
-    MainContainer: {
+    container: {
         height: '100%',
-        display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#242424',
@@ -57,7 +56,6 @@ const styles = StyleSheet.create({
         color: '#FFF',
     },
     searchContainer: {
-        display: 'flex',
         alignItems: 'center',
         width: '80%',
         marginTop: 16,

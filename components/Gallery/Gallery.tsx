@@ -8,14 +8,12 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import PressableImage from './subComponents/PressableImage';
-import { DanbooruPosts, GalleryRouteProp, DanbooruImage } from '../../interfaces/types';
+import { DanbooruPosts, GalleryRouteProp } from '../../interfaces/types';
 import ImageModal from './subComponents/ImageModal';
 
 interface Props {
     route: GalleryRouteProp,
 }
-
-const imagePreviewSize = 130;
 
 const Gallery = ({ route }: Props): JSX.Element => {
     const [posts, setPosts] = React.useState<DanbooruPosts>([]);
@@ -24,8 +22,9 @@ const Gallery = ({ route }: Props): JSX.Element => {
     const [modalVisible, setModalVisible] = React.useState<boolean>(false);
     const [modalImage, setModalImage] = React.useState<string>('');
     const windowWidth = useWindowDimensions().width;
-    const { searchText } = route.params;
+    const imagePreviewSize = 130;
     const isTesting = false;
+    const { searchText } = route.params;
 
     const fetchPosts = () => {
         axios.get(`https://${isTesting ? 'test' : 'dan'}booru.donmai.us/posts.json?page=${page}&tags=${searchText}`)
@@ -76,6 +75,7 @@ const Gallery = ({ route }: Props): JSX.Element => {
                         <PressableImage
                             image={item}
                             handlePress={handleImagePress}
+                            size={imagePreviewSize}
                         />
                     )
                 }/>
@@ -91,14 +91,6 @@ const styles = StyleSheet.create({
     gallery: {
         padding: 8,
     },
-    image: {
-        width: imagePreviewSize,
-        height: imagePreviewSize,
-    },
-    imageFull: {
-        width: '100%',
-        height: 400,
-    }
 });
 
 export default Gallery;

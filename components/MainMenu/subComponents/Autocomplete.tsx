@@ -9,7 +9,7 @@ interface Props {
     handleSuggestion: Function,
 }
 
-const Autocomplete = ({ text, handleSuggestion }: Props) => {
+const Autocomplete = ({ text, handleSuggestion }: Props): JSX.Element | null => {
     const [suggestions, setSuggestions] = React.useState<DanbooruAutocompleteResponse>([]);
 
     const querySuggestions = () => {
@@ -33,22 +33,27 @@ const Autocomplete = ({ text, handleSuggestion }: Props) => {
         return () => setSuggestions([]);
     }, [text]);
 
-    return (
-        <View style={styles.container}>
-            {suggestions.length > 0 ? (
+    if (suggestions.length === 0) {
+        return null;
+    } else {
+        return (
+            <View style={styles.container}>
                 <FlatList
                     style={styles.list}
                     data={suggestions}
                     keyExtractor={item => item.value}
                     renderItem={({ item }) => (
                         <Pressable onPress={() => handleSuggestion(item.value)}>
-                            <Text style={styles.suggestion}>{item.label}</Text>
+                            <View style={styles.suggestionContainer}>
+                                <Text style={styles.suggestion}>{item.label}</Text>
+                                <Text style={styles.suggestion}>{item.post_count}</Text>
+                            </View>
                         </Pressable>
                     )}
                 />
-            ): null}
-        </View>
-    )
+            </View>
+        )
+    }
 };
 
 const styles = StyleSheet.create({
@@ -59,6 +64,12 @@ const styles = StyleSheet.create({
     list: {
         padding: 10,
         backgroundColor: '#FFF',
+    },
+    suggestionContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     suggestion: {
         color: '#242424',
