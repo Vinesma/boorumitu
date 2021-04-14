@@ -10,7 +10,7 @@ interface Props {
 
 const PressableImage = ({ image, handlePress, size }: Props): JSX.Element => {
     return (
-        <Pressable onPress={() => handlePress(image.file_url)}>
+        <Pressable onPress={() => handlePress(image)}>
             <Image
                 style={{ width: size, height: size }}
                 source={{ uri: image.preview_file_url }}
