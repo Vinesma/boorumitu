@@ -4,12 +4,12 @@ import {
     FlatList,
     StyleSheet,
     useWindowDimensions,
-    ActivityIndicator,
 } from 'react-native';
 import axios from 'axios';
 import PressableImage from './subComponents/PressableImage';
 import { DanbooruPosts, GalleryRouteProp } from '../../interfaces/types';
 import ImageModal from './subComponents/ImageModal';
+import Loader from '../Loader/Loader';
 
 interface Props {
     route: GalleryRouteProp,
@@ -62,7 +62,7 @@ const Gallery = ({ route }: Props): JSX.Element => {
 
     return (
         <View style={styles.container}>
-            { loading ? <ActivityIndicator size="large" /> : null}
+            {loading ? <Loader size="large" color="#ee9818" /> : null}
             <ImageModal visible={modalVisible} uri={modalImage} handleModal={handleModal}/>
             <FlatList
                 data={posts}
