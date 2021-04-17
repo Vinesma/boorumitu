@@ -1,22 +1,21 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
+// Route Props
 export type RootStackParamList = {
     Menu: undefined,
-    Gallery: { searchText: string },
+    Gallery: { searchText: string, site: Site },
 };
 
-// Stack Props
 export type MainMenuNavigationProp = StackNavigationProp<
     RootStackParamList,
     'Menu'
 >;
 
-// Route Props
 export type GalleryRouteProp = RouteProp<RootStackParamList, 'Gallery'>;
 
 // ResponseProps
-export interface DanbooruImage {
+interface DanbooruImage {
     id: number,
     created_at: string,
     updated_at: string,
@@ -68,7 +67,7 @@ export interface DanbooruImage {
     preview_file_url: string,
 }
 
-export type DanbooruPosts = DanbooruImage[];
+type DanbooruPosts = DanbooruImage[];
 
 interface DanbooruAutocomplete {
     type: string,
@@ -80,3 +79,12 @@ interface DanbooruAutocomplete {
 }
 
 export type DanbooruAutocompleteResponse = DanbooruAutocomplete[];
+
+// Yande.re
+type YandereImage = DanbooruImage;
+type YanderePosts = YandereImage[];
+
+// Supported websites
+export type Site = "danbooru" | "yande.re";
+export type GenericImage = DanbooruImage | YandereImage;
+export type GenericPosts = DanbooruPosts | YanderePosts;
