@@ -1,9 +1,9 @@
 import React from 'react';
 import { Pressable, Image } from 'react-native';
-import { DanbooruImage } from '../../../interfaces/types';
+import { GenericImage } from '../../../interfaces/types';
 
 interface Props {
-    image: DanbooruImage,
+    image: GenericImage,
     handlePress: Function,
     size: number,
 }

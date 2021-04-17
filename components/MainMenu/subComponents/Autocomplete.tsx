@@ -1,8 +1,8 @@
 import React from 'react';
 import { FlatList, Text, Pressable, View, StyleSheet } from 'react-native';
-import axios from 'axios';
 import { DanbooruAutocompleteResponse } from '../../../interfaces/types';
 import { returnLastTag } from '../../../helpers/formatSearch';
+import useAxiosRequest from '../../../hooks/useAxiosRequest';
 
 interface Props {
     text: string,
@@ -11,21 +11,19 @@ interface Props {
 
 const Autocomplete = ({ text, handleSuggestion }: Props): JSX.Element | null => {
     const [suggestions, setSuggestions] = React.useState<DanbooruAutocompleteResponse>([]);
+    const { get, requestValue, requestStatus, requestError } = useAxiosRequest<DanbooruAutocompleteResponse>("danbooru", []);
 
-    const querySuggestions = () => {
-        axios
-            .get(`https://danbooru.donmai.us/autocomplete.json?search[query]=${returnLastTag(text)}&search[type]=tag_query&limit=6`)
-            .then(response => {
-                setSuggestions(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
+    React.useEffect(() => {
+        if (requestStatus === "success") {
+            setSuggestions(requestValue);
+        } else if (requestStatus === "error") {
+            console.error(`Autocomplete: ${requestError}`);
+        }
+    }, [requestStatus]);
 
     React.useEffect(() => {
         if (text !== '') {
-            querySuggestions();
+            get(`/autocomplete.json?search[query]=${returnLastTag(text)}&search[type]=tag_query&limit=6`);
         } else {
             setSuggestions([]);
         }

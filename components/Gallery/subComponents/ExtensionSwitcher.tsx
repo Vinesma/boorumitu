@@ -1,10 +1,10 @@
 import React from 'react';
 import { Animated, useWindowDimensions, StyleSheet } from 'react-native';
-import { DanbooruImage } from '../../../interfaces/types';
+import { GenericImage } from '../../../interfaces/types';
 import Video from 'react-native-video';
 
 interface Props {
-    source: DanbooruImage,
+    source: GenericImage,
     handleLoading: Function,
 }
 

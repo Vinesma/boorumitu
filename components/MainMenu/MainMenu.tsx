@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Text, TextInput, Button } from 'react-native';
-import { MainMenuNavigationProp } from '../../interfaces/types';
+import { View, ScrollView, StyleSheet, Text, TextInput, Button } from 'react-native';
+import { MainMenuNavigationProp, Site } from '../../interfaces/types';
 import { formatDanbooru, shouldAppend, returnFirstTag } from '../../helpers/formatSearch';
 import Autocomplete from './subComponents/Autocomplete';
 
@@ -10,10 +10,14 @@ interface Props {
 
 const MainMenu = ({ navigation }: Props): JSX.Element => {
     const [searchText, setSearchText] = React.useState<string>('');
+    const [site, setSite] = React.useState<Site>('danbooru');
 
     const handleNavigation = () => {
         if (searchText !== '') {
-            navigation.navigate('Gallery', { searchText: formatDanbooru(searchText) });
+            navigation.navigate('Gallery', { 
+                searchText: formatDanbooru(searchText),
+                site,
+            });
         }
     };
 
@@ -39,6 +43,17 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
             <View style={styles.searchContainer}>
                 <Button title="  Clear  " color="#ff0000" onPress={() => setSearchText('')} />
             </View>
+            {/* <ScrollView style={{ width: '80%', marginTop: 16}}>
+                <Text style={styles.text}>Which site to use?</Text>
+                <Text style={styles.text} onPress={() => {
+                    setSite("danbooru");
+                    console.info("set to danbooru");
+                }}>Danbooru</Text>
+                <Text style={styles.text} onPress={() => {
+                    setSite("yande.re");
+                    console.info("set to yande.re");
+                }}>Yande.re</Text>
+            </ScrollView> */}
             <Autocomplete text={searchText} handleSuggestion={handleSuggestion}/>
         </View>
     );
@@ -53,6 +68,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 26,
+        color: '#FFF',
+    },
+    text: {
         color: '#FFF',
     },
     searchContainer: {

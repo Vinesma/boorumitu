@@ -3,14 +3,15 @@ import {
     Modal,
     View,
     StyleSheet,
+    StatusBar,
 } from 'react-native';
-import { DanbooruImage } from '../../../interfaces/types';
+import { GenericImage } from '../../../interfaces/types';
 import Loader from '../../Loader/Loader';
 import ExtensionSwitcher from './ExtensionSwitcher';
 
 interface Props {
     visible: boolean,
-    image: DanbooruImage,
+    image: GenericImage,
     handleModal: Function,
 }
 
