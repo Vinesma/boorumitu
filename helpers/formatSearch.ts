@@ -1,7 +1,26 @@
+import { Site } from "../interfaces/types";
+
 /** Returns a formatted string that can be used in a request to the Danbooru API. */
 const formatDanbooru = (text: string): string => {
     return text.trim().split(/ +/, 2).join('+');
 };
+
+/** Returns a formatted string that can be used in a request to most of the APIs. */
+const formatSearch = (text: string): string => {
+    return text.trim().split(/ +/).join('+');
+};
+
+/** Returns the proper search string for the website */
+const switchSearch = (text: string, site: Site): string => {
+    switch (site) {
+        case "danbooru":
+            return formatDanbooru(text);
+        case "yande.re":
+            return formatSearch(text);
+        default:
+            return formatSearch(text);
+    }
+}
 
 /** Returns the first TAG of a string, TAGs are individual strings used for searching and indexing. */
 const returnFirstTag = (text: string): string => {
@@ -24,4 +43,4 @@ const shouldAppend = (text: string): boolean => {
     return lastTag > 0;
 }
 
-export { formatDanbooru, returnLastTag, returnFirstTag, shouldAppend };
+export { switchSearch, returnLastTag, returnFirstTag, shouldAppend };

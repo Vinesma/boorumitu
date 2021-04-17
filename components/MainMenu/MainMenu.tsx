@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Text, TextInput, Button } from 'react-native';
 import { MainMenuNavigationProp, Site } from '../../interfaces/types';
-import { formatDanbooru, shouldAppend, returnFirstTag } from '../../helpers/formatSearch';
+import { switchSearch, shouldAppend, returnFirstTag } from '../../helpers/formatSearch';
 import Autocomplete from './subComponents/Autocomplete';
 
 interface Props {
@@ -15,7 +15,7 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
     const handleNavigation = () => {
         if (searchText !== '') {
             navigation.navigate('Gallery', { 
-                searchText: formatDanbooru(searchText),
+                searchText: switchSearch(searchText, site),
                 site,
             });
         }
