@@ -1,6 +1,6 @@
-import { DanbooruImage } from '../interfaces/types';
+import { GenericImage } from '../interfaces/types';
 
-export const emptyImage: DanbooruImage = {
+export const emptyImage: GenericImage = {
     id: 0,
     created_at: '',
     updated_at: '',

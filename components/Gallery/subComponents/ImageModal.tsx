@@ -12,7 +12,7 @@ import ExtensionSwitcher from './ExtensionSwitcher';
 interface Props {
     visible: boolean,
     image: GenericImage,
-    handleModal: Function,
+    handleModal: () => void,
 }
 
 const ImageModal = ({ visible, image, handleModal }: Props): JSX.Element => {

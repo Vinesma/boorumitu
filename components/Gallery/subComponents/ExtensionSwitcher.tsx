@@ -5,7 +5,7 @@ import Video from 'react-native-video';
 
 interface Props {
     source: GenericImage,
-    handleLoading: Function,
+    handleLoading: (arg0: boolean) => void,
 }
 
 const ExtensionSwitcher = ({ source, handleLoading }: Props) => {
@@ -42,7 +42,7 @@ const ExtensionSwitcher = ({ source, handleLoading }: Props) => {
         default:
             return (
                 <Animated.Image
-                    resizeMode="center"
+                    resizeMode="contain"
                     onLoadStart={() => handleLoading(true)}
                     onLoadEnd={() => handleLoading(false)}
                     style={{

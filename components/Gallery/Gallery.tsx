@@ -18,8 +18,8 @@ interface Props {
 
 const Gallery = ({ route }: Props): JSX.Element => {
     const { searchText } = route.params;
-    const { get, requestValue, requestStatus, requestError } = useAxiosRequest<GenericPosts>(route.params.site, []);
-    const [posts, setPosts] = React.useState<GenericPosts>([]);
+    const { get, requestValue, requestStatus, requestError } = useAxiosRequest(route.params.site, [], true);
+    const [posts, setPosts] = React.useState<GenericImage[]>([]);
     const [page, setPage] = React.useState<number>(1);
     const [loading, setLoading] = React.useState<boolean>(true);
     const [modalVisible, setModalVisible] = React.useState<boolean>(false);

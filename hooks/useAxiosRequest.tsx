@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { Site } from '../interfaces/types';
+import { Site, GenericImage } from '../interfaces/types';
 
 const urls = [
     "https://danbooru.donmai.us",
@@ -19,12 +19,50 @@ const chooseSite = (site: Site): string => {
     }
 }
 
+/** Narrow down each response into a common Generic object for consumption by the app */
+const filterBySite = (site: Site, response: any[]): GenericImage[] => {
+    let list: GenericImage[];
+
+    switch (site) {
+        case "yande.re":
+            list = response.map(item => {
+                return {
+                    id: item.id,
+                    preview_url: item.preview_url,
+                    file_url: item.file_url,
+                    large_file_url: item.jpeg_url,
+                    source: item.source,
+                    tags: item.tags,
+                    file_ext: item.file_ext,
+                    md5: item.md5,
+                }
+            })
+            break;
+        case "danbooru":
+        default:
+            list = response.map(item => {
+                return {
+                    id: item.id,
+                    preview_url: item.preview_file_url,
+                    file_url: item.file_url,
+                    large_file_url: item.large_file_url,
+                    source: item.source,
+                    tags: item.tag_string,
+                    file_ext: item.file_ext,
+                    md5: item.md5,
+                }
+            });
+    }
+
+    return list;
+}
+
 type Status = "idle" | "pending" | "success" | "error";
 
 /** Perform a request using axios */
-export default function useAxiosRequest<ResponseType>(site: Site, initialState: any) {
+export default function useAxiosRequest(site: Site, initialState: any, filter = false) {
     const [requestStatus, setRequestStatus] = useState<Status>("idle");
-    const [requestValue, setRequestValue] = useState<ResponseType>(initialState);
+    const [requestValue, setRequestValue] = useState(initialState);
     const [requestError, setRequestError] = useState<any>(null);
 
     const axiosInstance = axios.create({
@@ -38,7 +76,11 @@ export default function useAxiosRequest<ResponseType>(site: Site, initialState: 
 
         return axiosInstance.get(params)
             .then(response => {
-                setRequestValue(response.data);
+                if (filter) {
+                    setRequestValue(filterBySite(site, response.data));
+                } else {
+                    setRequestValue(response.data);
+                }
                 setRequestStatus("success");
             })
             .catch(error => {

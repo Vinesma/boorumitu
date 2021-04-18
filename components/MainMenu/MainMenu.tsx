@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet, Text, TextInput, Button } from 'react-nat
 import { MainMenuNavigationProp, Site } from '../../interfaces/types';
 import { switchSearch, shouldAppend, returnFirstTag } from '../../helpers/formatSearch';
 import Autocomplete from './subComponents/Autocomplete';
+import WebsiteList from './subComponents/WebsiteList';
 
 interface Props {
     navigation: MainMenuNavigationProp,
@@ -10,6 +11,7 @@ interface Props {
 
 const MainMenu = ({ navigation }: Props): JSX.Element => {
     const [searchText, setSearchText] = React.useState<string>('');
+    const [modalVisible, setModalVisible] = React.useState<boolean>(false);
     const [site, setSite] = React.useState<Site>('danbooru');
 
     const handleNavigation = () => {
@@ -29,6 +31,9 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
         }
     }
 
+    const handleModal = () => setModalVisible(!modalVisible);
+    const setWebsite = (text: Site) => setSite(text);
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>BOORUMITU</Text>
@@ -43,17 +48,10 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
             <View style={styles.searchContainer}>
                 <Button title="  Clear  " color="#ff0000" onPress={() => setSearchText('')} />
             </View>
-            {/* <ScrollView style={{ width: '80%', marginTop: 16}}>
-                <Text style={styles.text}>Which site to use?</Text>
-                <Text style={styles.text} onPress={() => {
-                    setSite("danbooru");
-                    console.info("set to danbooru");
-                }}>Danbooru</Text>
-                <Text style={styles.text} onPress={() => {
-                    setSite("yande.re");
-                    console.info("set to yande.re");
-                }}>Yande.re</Text>
-            </ScrollView> */}
+            <View style={styles.searchContainer}>
+                <Button title={site} color="#4d4d4d" onPress={() => setModalVisible(!modalVisible)} />
+            </View>
+            <WebsiteList modalVisible={modalVisible} handleModal={handleModal} setWebsite={setWebsite}/>
             <Autocomplete text={searchText} handleSuggestion={handleSuggestion}/>
         </View>
     );

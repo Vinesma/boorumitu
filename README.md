@@ -1,6 +1,12 @@
 # Boorumitu
 
-Danbooru client for Android and (hopefully) iOS.
+*booru client for Android.
+
+## Current support
+
+* [Danbooru](danbooru.donmai.us/)
+
+* [Yande.re](https://yande.re/)
 
 ## Development
 

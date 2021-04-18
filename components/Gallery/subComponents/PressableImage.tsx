@@ -4,7 +4,7 @@ import { GenericImage } from '../../../interfaces/types';
 
 interface Props {
     image: GenericImage,
-    handlePress: Function,
+    handlePress: (arg0: GenericImage) => void,
     size: number,
 }
 
@@ -13,7 +13,7 @@ const PressableImage = ({ image, handlePress, size }: Props): JSX.Element => {
         <Pressable onPress={() => handlePress(image)}>
             <Image
                 style={{ width: size, height: size }}
-                source={{ uri: image.preview_file_url }}
+                source={{ uri: image.preview_url }}
             />
         </Pressable>
     )

@@ -6,12 +6,12 @@ import useAxiosRequest from '../../../hooks/useAxiosRequest';
 
 interface Props {
     text: string,
-    handleSuggestion: Function,
+    handleSuggestion: (arg0: string) => void,
 }
 
 const Autocomplete = ({ text, handleSuggestion }: Props): JSX.Element | null => {
     const [suggestions, setSuggestions] = React.useState<DanbooruAutocompleteResponse>([]);
-    const { get, requestValue, requestStatus, requestError } = useAxiosRequest<DanbooruAutocompleteResponse>("danbooru", []);
+    const { get, requestValue, requestStatus, requestError } = useAxiosRequest("danbooru", []);
 
     React.useEffect(() => {
         if (requestStatus === "success") {
