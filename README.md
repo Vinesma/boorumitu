@@ -4,7 +4,7 @@
 
 ## Current support
 
-* [Danbooru](danbooru.donmai.us/)
+* [Danbooru](https://danbooru.donmai.us/)
 
 * [Yande.re](https://yande.re/)
 
