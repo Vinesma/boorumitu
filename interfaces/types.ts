@@ -77,8 +77,6 @@ interface DanbooruAutocomplete {
     antecedent: string | null,
 }
 
-export type DanbooruAutocompleteResponse = DanbooruAutocomplete[];
-
 // Yande.re
 interface YandereImage {
     id: number;
@@ -127,6 +125,32 @@ interface YandereImage {
     last_commented_at: number;
 };
 
+// Gelbooru
+interface GelbooruImage {
+    source: string;
+    directory: string;
+    hash: string;
+    height: number;
+    id: number;
+    image: string;
+    change: number;
+    owner: string;
+    parent_id?: any;
+    rating: string;
+    sample: number;
+    preview_height: number;
+    preview_width: number;
+    sample_height: number;
+    sample_width: number;
+    score: number;
+    tags: string;
+    title: string;
+    width: number;
+    file_url: string;
+    created_at: string;
+    post_locked: number;
+}
+
 // Generics
 export type GenericImage = {
     id: number,
@@ -139,7 +163,17 @@ export type GenericImage = {
     md5?: string,
 };
 
-export type GenericPosts = Array<DanbooruImage | YandereImage>;
+interface GelbooruAutocomplete {
+    type: string,
+    label: string,
+    value: string,
+    category: string,
+    post_count: string,
+}
+
+export type GenericPosts = Array<DanbooruImage | YandereImage | GelbooruImage>;
 
 // Supported websites
-export type Site = "danbooru" | "yande.re";
+export type Site = "danbooru" | "yande.re" | "gelbooru";
+
+export type AutocompleteResponse = Array<DanbooruAutocomplete | GelbooruAutocomplete>;

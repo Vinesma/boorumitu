@@ -52,7 +52,7 @@ const MainMenu = ({ navigation }: Props): JSX.Element => {
                 <Button title={site} color="#4d4d4d" onPress={() => setModalVisible(!modalVisible)} />
             </View>
             <WebsiteList modalVisible={modalVisible} handleModal={handleModal} setWebsite={setWebsite}/>
-            <Autocomplete text={searchText} handleSuggestion={handleSuggestion}/>
+            <Autocomplete text={searchText} handleSuggestion={handleSuggestion} site={site}/>
         </View>
     );
 };

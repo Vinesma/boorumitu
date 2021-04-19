@@ -35,6 +35,9 @@ const Gallery = ({ route }: Props): JSX.Element => {
             case "yande.re":
                 get(`/post.json?page=${page}&tags=${searchText}`);
                 break;
+            case "gelbooru":
+                get(`/index.php?page=dapi&s=post&q=index&tags=${searchText}+&pid=${page - 1}&json=1`);
+                break;
             default:
                 get(`/posts.json?page=${page}&tags=${searchText}`);
                 break;

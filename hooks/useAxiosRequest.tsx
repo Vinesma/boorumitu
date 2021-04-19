@@ -5,6 +5,7 @@ import { Site, GenericImage } from '../interfaces/types';
 const urls = [
     "https://danbooru.donmai.us",
     "https://yande.re",
+    "https://gelbooru.com",
 ]
 
 /** Returns a string with the baseURL of the supported website */
@@ -14,6 +15,8 @@ const chooseSite = (site: Site): string => {
             return urls[0];
         case "yande.re":
             return urls[1];
+        case "gelbooru":
+            return urls[2];
         default:
             return urls[0];
     }
@@ -36,7 +39,21 @@ const filterBySite = (site: Site, response: any[]): GenericImage[] => {
                     file_ext: item.file_ext,
                     md5: item.md5,
                 }
-            })
+            });
+            break;
+        case "gelbooru":
+            list = response.map(item => {
+                return {
+                    id: item.id,
+                    preview_url: `https://img3.gelbooru.com/thumbnails/${item.directory}/thumbnail_${item.image}`,
+                    file_url: item.file_url,
+                    large_file_url: item.file_url,
+                    source: item.source,
+                    tags: item.tags,
+                    file_ext: ".png",
+                    md5: item.hash,
+                }
+            });
             break;
         case "danbooru":
         default:

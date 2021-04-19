@@ -17,6 +17,7 @@ const WebsiteList = ({ modalVisible, handleModal, setWebsite }: Props): JSX.Elem
         <SectionList
             sections={[
                 {title: 'D', data: ['danbooru']},
+                {title: 'G', data: ['gelbooru']},
                 {title: 'Y', data: ['yande.re']},
             ]}
             renderItem={

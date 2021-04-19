@@ -6,6 +6,8 @@
 
 * [Danbooru](https://danbooru.donmai.us/)
 
+* [Gelbooru](https://gelbooru.com/)
+
 * [Yande.re](https://yande.re/)
 
 ## Development

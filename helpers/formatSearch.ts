@@ -16,6 +16,7 @@ const switchSearch = (text: string, site: Site): string => {
         case "danbooru":
             return formatDanbooru(text);
         case "yande.re":
+        case "gelbooru":
             return formatSearch(text);
         default:
             return formatSearch(text);

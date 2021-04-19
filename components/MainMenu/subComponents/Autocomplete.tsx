@@ -1,16 +1,17 @@
 import React from 'react';
 import { FlatList, Text, Pressable, View, StyleSheet } from 'react-native';
-import { DanbooruAutocompleteResponse } from '../../../interfaces/types';
+import { AutocompleteResponse, Site } from '../../../interfaces/types';
 import { returnLastTag } from '../../../helpers/formatSearch';
 import useAxiosRequest from '../../../hooks/useAxiosRequest';
 
 interface Props {
     text: string,
     handleSuggestion: (arg0: string) => void,
+    site: Site,
 }
 
-const Autocomplete = ({ text, handleSuggestion }: Props): JSX.Element | null => {
-    const [suggestions, setSuggestions] = React.useState<DanbooruAutocompleteResponse>([]);
+const Autocomplete = ({ text, handleSuggestion, site }: Props): JSX.Element | null => {
+    const [suggestions, setSuggestions] = React.useState<AutocompleteResponse>([]);
     const { get, requestValue, requestStatus, requestError } = useAxiosRequest("danbooru", []);
 
     React.useEffect(() => {
@@ -23,7 +24,15 @@ const Autocomplete = ({ text, handleSuggestion }: Props): JSX.Element | null => 
 
     React.useEffect(() => {
         if (text !== '') {
-            get(`/autocomplete.json?search[query]=${returnLastTag(text)}&search[type]=tag_query&limit=6`);
+            switch (site) {
+                case "gelbooru":
+                    get(`/index.php?page=autocomplete2&term=${returnLastTag(text)}&type=tag_query&limit=6`)
+                case "danbooru":
+                case "yande.re":
+                default:
+                    get(`/autocomplete.json?search[query]=${returnLastTag(text)}&search[type]=tag_query&limit=6`);
+                    break;
+            } 
         } else {
             setSuggestions([]);
         }
